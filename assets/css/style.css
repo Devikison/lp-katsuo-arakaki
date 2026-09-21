@@ -50,7 +50,14 @@
 
 /* ---------- Reset leve ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; scrollbar-color: var(--blue) var(--tint); scrollbar-width: thin; }
+
+/* ---------- Barra de rolagem na identidade da marca ---------- */
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: var(--tint); }
+::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 999px; border: 2px solid var(--tint); }
+::-webkit-scrollbar-thumb:hover { background: var(--blue-ink); }
+
 body {
   margin: 0;
   font-family: var(--font-body);

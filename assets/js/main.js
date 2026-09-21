@@ -48,6 +48,43 @@
 
   /* ---------- Revelação suave ao rolar ---------- */
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- Rolagem suave e sutil no scroll do mouse (desktop) ---------- */
+  if (!reduce && !("ontouchstart" in window) && "requestAnimationFrame" in window) {
+    var current = window.scrollY;
+    var target = window.scrollY;
+    var ticking = false;
+
+    function maxScroll() {
+      return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    }
+
+    function renderScroll() {
+      var diff = target - current;
+      current += diff * 0.14;
+      if (Math.abs(diff) < 0.4) {
+        current = target;
+        window.scrollTo(0, current);
+        ticking = false;
+        return;
+      }
+      window.scrollTo(0, current);
+      requestAnimationFrame(renderScroll);
+    }
+
+    window.addEventListener("wheel", function (e) {
+      if (e.ctrlKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return; // zoom / rolagem lateral: deixa nativo
+      e.preventDefault();
+      target = Math.max(0, Math.min(maxScroll(), target + e.deltaY));
+      if (!ticking) { ticking = true; requestAnimationFrame(renderScroll); }
+    }, { passive: false });
+
+    window.addEventListener("scroll", function () {
+      if (!ticking) { current = window.scrollY; target = window.scrollY; }
+    }, { passive: true });
+
+    window.addEventListener("resize", function () { target = Math.min(target, maxScroll()); });
+  }
   var items = document.querySelectorAll(".reveal");
   // O que já está na primeira dobra aparece na hora, sem esperar o observer
   items.forEach(function (el) {
