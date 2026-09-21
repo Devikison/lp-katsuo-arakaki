@@ -385,9 +385,23 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .prose { display: flex; flex-direction: column; gap: 20px; }
 .prose p { font-size: clamp(16px, 1.6vw, 18.5px); line-height: 1.78; text-wrap: pretty; font-weight: 400; }
 .prose__pull {
-  font-family: var(--font-title); font-weight: 500; color: var(--ink);
-  font-size: clamp(19px, 2.1vw, 23px) !important; line-height: 1.45 !important;
-  padding-left: 18px; border-left: 2px solid var(--blue-soft);
+  position: relative; display: inline-flex; align-items: center; gap: 14px;
+  margin: 6px 0; padding: 16px 28px 16px 22px; border-radius: 999px;
+  background: linear-gradient(120deg, var(--navy) 0%, var(--navy-2) 100%);
+  border: 1px solid rgba(135, 170, 226, .35);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .12) inset, 0 14px 34px rgba(5, 23, 67, .18);
+  font-family: var(--font-title); font-weight: 500; color: #fff;
+  font-size: clamp(18px, 2vw, 22px) !important; line-height: 1.35 !important;
+  overflow: hidden;
+}
+.prose__pull::before {
+  content: ""; flex: none; width: 12px; height: 12px; border-radius: 50%; background: var(--blue-soft);
+  box-shadow: 0 0 0 4px rgba(135, 170, 226, .22), 0 0 0 8px rgba(135, 170, 226, .10);
+}
+.prose__pull::after {
+  content: ""; position: absolute; right: -70px; top: -70px; width: 200px; height: 200px; border-radius: 50%;
+  background: repeating-radial-gradient(circle at center, rgba(135, 170, 226, .22) 0 1px, rgba(135, 170, 226, 0) 1px 16px);
+  pointer-events: none;
 }
 .highlight {
   margin-top: clamp(48px, 6vw, 72px); padding-top: clamp(32px, 4vw, 44px);
@@ -743,6 +757,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .btn { white-space: normal; text-align: center; }
   .eyebrow { font-size: 10.5px; letter-spacing: .18em; padding: 8px 14px; }
   .recog__item { padding: 20px 18px; gap: 14px; }
+  .prose__pull { border-radius: 22px; padding: 14px 20px 14px 18px; align-items: flex-start; }
+  .prose__pull::before { margin-top: 7px; }
   .quote { padding: 22px 18px 20px 22px; flex-basis: 88%; }
   .faq__item summary { padding: 18px 18px; }
   .faq__body { padding: 0 18px 20px; }
