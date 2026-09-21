@@ -154,22 +154,29 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .btn .ico { width: 21px; height: 21px; flex: none; }
 .btn:active { transform: translateY(0) scale(.98); }
 
+/* CTA principal · identidade da página: azul da marca, borda translúcida, brilho no hover,
+   símbolo do WhatsApp em círculo branco. Para voltar ao verde, troque --cta-bg por var(--wa). */
 .btn--wa {
+  --cta-bg: linear-gradient(135deg, #2F6FC4 0%, #4D8AD6 100%);
   position: relative; overflow: hidden; isolation: isolate;
-  background: var(--wa); color: var(--navy);
+  background: var(--cta-bg); color: #fff;
   border: 3px solid rgba(255, 255, 255, .32);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, .18), 0 14px 34px rgba(37, 211, 102, .22);
-  transition: transform .3s ease-in-out, border-color .3s ease-in-out, box-shadow .3s ease-in-out, background .3s ease;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, .2), 0 14px 34px rgba(47, 111, 196, .28);
+  transition: transform .3s ease-in-out, border-color .3s ease-in-out, box-shadow .3s ease-in-out;
 }
 .btn--wa::before {
-  content: ""; position: absolute; top: 0; left: -120px; width: 110px; height: 100%; opacity: .55; pointer-events: none;
-  background-image: linear-gradient(120deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, .85), rgba(255, 255, 255, 0) 70%);
+  content: ""; position: absolute; top: 0; left: -120px; width: 110px; height: 100%; opacity: .6; pointer-events: none;
+  background-image: linear-gradient(120deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, .8), rgba(255, 255, 255, 0) 70%);
 }
-.btn--wa:hover { background: var(--wa); color: var(--navy); transform: scale(1.05); border-color: rgba(255, 255, 255, .6); box-shadow: 0 14px 30px rgba(0, 0, 0, .22), 0 18px 40px rgba(37, 211, 102, .3); }
+.btn--wa:hover { color: #fff; transform: scale(1.05); border-color: rgba(255, 255, 255, .6); box-shadow: 0 14px 30px rgba(0, 0, 0, .24), 0 18px 40px rgba(47, 111, 196, .36); }
 .btn--wa:hover::before { animation: shine 1.5s ease-out infinite; }
-.btn--wa .ico { color: var(--navy); }
-.btn__arrow { width: 24px; height: 24px; flex: none; margin-left: 2px; transition: transform .3s ease-in-out; }
-.btn--wa:hover .btn__arrow { transform: translateX(4px); }
+.btn__wa {
+  flex: none; width: 26px; height: 26px; border-radius: 50%; background: #fff; margin-left: 2px;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: transform .3s ease-in-out;
+}
+.btn__wa svg { width: 16px; height: 16px; color: #1DB955; }
+.btn--wa:hover .btn__wa { transform: translateX(4px); }
 @keyframes shine { 0% { left: -120px; } 60% { left: 100%; } 100% { left: 100%; } }
 
 .btn--ghost { color: #fff; border: 1px solid rgba(37, 211, 102, .55); background: rgba(37, 211, 102, .12); }
