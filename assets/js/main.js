@@ -49,6 +49,10 @@
   /* ---------- Revelação suave ao rolar ---------- */
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var items = document.querySelectorAll(".reveal");
+  // O que já está na primeira dobra aparece na hora, sem esperar o observer
+  items.forEach(function (el) {
+    if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add("is-in");
+  });
   if (reduce || !("IntersectionObserver" in window)) {
     items.forEach(function (el) { el.classList.add("is-in"); });
   } else {
@@ -57,7 +61,7 @@
         if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
       });
     }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
-    items.forEach(function (el) { io.observe(el); });
+    items.forEach(function (el) { if (!el.classList.contains("is-in")) io.observe(el); });
   }
 
   /* ---------- FAQ: um aberto por vez ---------- */
