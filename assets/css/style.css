@@ -385,7 +385,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .prose { display: flex; flex-direction: column; gap: 20px; }
 .prose p { font-size: clamp(16px, 1.6vw, 18.5px); line-height: 1.78; text-wrap: pretty; font-weight: 400; }
 .prose__pull {
-  position: relative; display: inline-flex; align-items: center; gap: 14px;
+  position: relative; display: inline-flex; align-items: center; gap: 14px; align-self: flex-start; max-width: 100%;
   margin: 6px 0; padding: 16px 28px 16px 22px; border-radius: 999px;
   background: linear-gradient(120deg, var(--navy) 0%, var(--navy-2) 100%);
   border: 1px solid rgba(135, 170, 226, .35);
