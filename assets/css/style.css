@@ -157,18 +157,18 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* CTA principal · identidade da página: azul da marca, borda translúcida, brilho no hover,
    símbolo do WhatsApp em círculo branco. Para voltar ao verde, troque --cta-bg por var(--wa). */
 .btn--wa {
-  --cta-bg: linear-gradient(135deg, #2F6FC4 0%, #4D8AD6 100%);
+  --cta-bg: linear-gradient(135deg, #1FC65F 0%, #2EDB72 100%);
   position: relative; overflow: hidden; isolation: isolate;
-  background: var(--cta-bg); color: #fff;
-  border: 3px solid rgba(255, 255, 255, .32);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, .2), 0 14px 34px rgba(47, 111, 196, .28);
+  background: var(--cta-bg); color: var(--navy);
+  border: 3px solid rgba(255, 255, 255, .38);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, .18), 0 14px 34px rgba(37, 211, 102, .3);
   transition: transform .3s ease-in-out, border-color .3s ease-in-out, box-shadow .3s ease-in-out;
 }
 .btn--wa::before {
   content: ""; position: absolute; top: 0; left: -120px; width: 110px; height: 100%; opacity: .6; pointer-events: none;
   background-image: linear-gradient(120deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, .8), rgba(255, 255, 255, 0) 70%);
 }
-.btn--wa:hover { color: #fff; transform: scale(1.05); border-color: rgba(255, 255, 255, .6); box-shadow: 0 14px 30px rgba(0, 0, 0, .24), 0 18px 40px rgba(47, 111, 196, .36); }
+.btn--wa:hover { color: var(--navy); transform: scale(1.05); border-color: rgba(255, 255, 255, .7); box-shadow: 0 14px 30px rgba(0, 0, 0, .22), 0 18px 40px rgba(37, 211, 102, .4); }
 .btn--wa:hover::before { animation: shine 1.5s ease-out infinite; }
 .btn__wa {
   flex: none; width: 26px; height: 26px; border-radius: 50%; background: #fff; margin-left: 2px;
