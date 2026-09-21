@@ -1,6 +1,18 @@
-# LP · Katsuo Arakaki · Terapia Breve
+# LP · Katsuo Arakaki · Terapia Breve — VERSÃO A
 
 Landing page da consulta de pré-terapia. HTML, CSS e JS puros, sem build. Basta abrir `index.html` ou publicar a pasta em qualquer host estático (Vercel, Netlify, GitHub Pages).
+
+Este é o repositório da **Versão A** (a página completa, com vídeo, carrossel de
+depoimentos e tabela comparativa em cartão), publicada em
+`www.katsuoarakaki.sitepreviavisual.site`, usada no teste A/B contra a
+**Versão B** (layout enxuto, mesma copy), que fica no repositório separado
+[`lp-katsuo-arakaki-v2`](https://github.com/Devikison/lp-katsuo-arakaki-v2),
+publicada em `katsuoarakakiv2.sitepreviavisual.site`.
+
+São repositórios separados porque o GitHub Pages só permite um domínio
+customizado por repositório. **Mudança de copy (texto) deve, em princípio, ir
+pras duas versões** — o teste compara layout, não mensagem. Mudança de
+layout/visual vale só para o repositório em que foi feita.
 
 ## Estrutura
 
