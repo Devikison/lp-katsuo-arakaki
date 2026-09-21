@@ -134,11 +134,42 @@
     play();
   });
 
-  /* ---------- FAQ: um aberto por vez ---------- */
-  var faqs = document.querySelectorAll(".faq__item");
+  /* ---------- FAQ: abre e fecha com animação lenta e suave, um por vez ---------- */
+  var faqs = Array.prototype.slice.call(document.querySelectorAll(".faq__item"));
+  function faqOpen(d) {
+    var body = d.querySelector(".faq__body");
+    faqs.forEach(function (o) { if (o !== d && o.classList.contains("is-open")) faqClose(o); });
+    d.open = true;
+    if (reduce) { d.classList.add("is-open"); body.style.height = "auto"; return; }
+    body.style.height = "0px";
+    body.getBoundingClientRect();
+    body.style.height = body.scrollHeight + "px";
+    d.classList.add("is-open");
+    var done = function (e) {
+      if (e.propertyName !== "height") return;
+      body.removeEventListener("transitionend", done);
+      if (d.classList.contains("is-open")) body.style.height = "auto";
+    };
+    body.addEventListener("transitionend", done);
+  }
+  function faqClose(d) {
+    var body = d.querySelector(".faq__body");
+    if (reduce) { d.classList.remove("is-open"); body.style.height = ""; d.open = false; return; }
+    body.style.height = body.getBoundingClientRect().height + "px";
+    body.getBoundingClientRect();
+    body.style.height = "0px";
+    d.classList.remove("is-open");
+    var done = function (e) {
+      if (e.propertyName !== "height") return;
+      body.removeEventListener("transitionend", done);
+      if (!d.classList.contains("is-open")) { d.open = false; body.style.height = ""; }
+    };
+    body.addEventListener("transitionend", done);
+  }
   faqs.forEach(function (d) {
-    d.addEventListener("toggle", function () {
-      if (d.open) faqs.forEach(function (o) { if (o !== d) o.open = false; });
+    d.querySelector("summary").addEventListener("click", function (e) {
+      e.preventDefault();
+      if (d.classList.contains("is-open")) faqClose(d); else faqOpen(d);
     });
   });
 
