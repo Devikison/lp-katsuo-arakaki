@@ -110,6 +110,14 @@
 
 <main>
 
+<!-- Faixa contínua · essência da marca -->
+<div class="marquee" aria-label="Acolher, compreender, conduzir, verdade, seriedade, liberdade interior">
+  <div class="marquee__track">
+    <div class="marquee__group"><span class="marquee__word">Acolher</span><span class="marquee__sep" aria-hidden="true"><i></i></span><span class="marquee__word">Compreender</span><span class="marquee__sep" aria-hidden="true"><i></i></span><span class="marquee__word">Conduzir</span><span class="marquee__sep" aria-hidden="true"><i></i></span><span class="marquee__word">Verdade</span><span class="marquee__sep" aria-hidden="true"><i></i></span><span class="marquee__word">Seriedade</span><span class="marquee__sep" aria-hidden="true"><i></i></span><span class="marquee__word">Liberdade interior</span><span class="marquee__sep" aria-hidden="true"><i></i></span></div>
+    <div class="marquee__group" aria-hidden="true"><span class="marquee__word">Acolher</span><span class="marquee__sep" aria-hidden="true"><i></i></span><span class="marquee__word">Compreender</span><span class="marquee__sep" aria-hidden="true"><i></i></span><span class="marquee__word">Conduzir</span><span class="marquee__sep" aria-hidden="true"><i></i></span><span class="marquee__word">Verdade</span><span class="marquee__sep" aria-hidden="true"><i></i></span><span class="marquee__word">Seriedade</span><span class="marquee__sep" aria-hidden="true"><i></i></span><span class="marquee__word">Liberdade interior</span><span class="marquee__sep" aria-hidden="true"><i></i></span></div>
+  </div>
+</div>
+
 <!-- ============================================================
      02 · SE VOCÊ SE RECONHECE AQUI
      ============================================================ -->
@@ -410,6 +418,32 @@
     <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
     Chamar no WhatsApp
   </a>
+</div>
+
+<!-- Balão de conversa (desktop) -->
+<div class="bubble" data-bubble hidden>
+  <a class="bubble__card js-wa" href="#" target="_blank" rel="noopener" aria-label="Chamar Katsuo Arakaki no WhatsApp">
+    <span class="bubble__avatar">
+      <img src="assets/img/katsuo-retrato-900.webp" alt="" width="56" height="56" loading="lazy" decoding="async">
+      <span class="bubble__online" aria-hidden="true"></span>
+    </span>
+    <span class="bubble__text">
+      <span class="bubble__name">Katsuo Arakaki · Terapia Breve</span>
+      <span class="bubble__msg">Olá, como posso te ajudar hoje?</span>
+    </span>
+  </a>
+  <button type="button" class="bubble__close" data-bubble-close aria-label="Fechar">
+    <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  </button>
+</div>
+
+<!-- Aviso de cookies (compacto) -->
+<div class="cookie" data-cookie role="dialog" aria-live="polite" aria-label="Aviso de cookies" hidden>
+  <p class="cookie__text"><strong>Cookies.</strong> Usamos cookies para medir resultados e melhorar sua experiência nesta página.</p>
+  <div class="cookie__actions">
+    <button type="button" class="cookie__btn cookie__btn--no" data-cookie-deny>Recusar</button>
+    <button type="button" class="cookie__btn cookie__btn--yes" data-cookie-accept>Aceitar</button>
+  </div>
 </div>
 
 <!-- Ícones -->

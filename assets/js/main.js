@@ -157,6 +157,56 @@
     paintSticky();
   }
 
+  /* ---------- Balão de conversa (desktop): aparece depois de um tempo ou ao passar o hero ---------- */
+  var bubble = document.querySelector("[data-bubble]");
+  if (bubble) {
+    var closed = false;
+    try { closed = sessionStorage.getItem("lp-bubble-closed") === "1"; } catch (e) {}
+    var showBubble = function () {
+      if (closed || bubble.classList.contains("bubble--on")) return;
+      bubble.hidden = false;
+      window.requestAnimationFrame(function () { bubble.classList.add("bubble--on"); });
+    };
+    if (!closed) {
+      setTimeout(showBubble, 6000);
+      window.addEventListener("scroll", function onFirst() {
+        if (window.scrollY > 500) { showBubble(); window.removeEventListener("scroll", onFirst); }
+      }, { passive: true });
+    }
+    var closeBtn = bubble.querySelector("[data-bubble-close]");
+    closeBtn.addEventListener("click", function () {
+      closed = true;
+      bubble.classList.remove("bubble--on");
+      try { sessionStorage.setItem("lp-bubble-closed", "1"); } catch (e) {}
+      setTimeout(function () { bubble.hidden = true; }, 700);
+    });
+  }
+
+  /* ---------- Cookies: aceitar ou recusar, lembrado no navegador ---------- */
+  var cookie = document.querySelector("[data-cookie]");
+  if (cookie) {
+    var choice = null;
+    try { choice = localStorage.getItem("lp-cookie-consent"); } catch (e) {}
+    window.LP_CONSENT = choice;
+    if (!choice) {
+      setTimeout(function () {
+        cookie.hidden = false;
+        document.body.classList.add("cookie-open");
+        window.requestAnimationFrame(function () { cookie.classList.add("cookie--on"); });
+      }, 1500);
+    }
+    function decide(v) {
+      try { localStorage.setItem("lp-cookie-consent", v); } catch (e) {}
+      window.LP_CONSENT = v;
+      document.dispatchEvent(new CustomEvent("lp:consent", { detail: v }));
+      cookie.classList.remove("cookie--on");
+      document.body.classList.remove("cookie-open");
+      setTimeout(function () { cookie.hidden = true; }, 600);
+    }
+    cookie.querySelector("[data-cookie-accept]").addEventListener("click", function () { decide("accepted"); });
+    cookie.querySelector("[data-cookie-deny]").addEventListener("click", function () { decide("denied"); });
+  }
+
   /* ---------- Ano ---------- */
   var y = document.getElementById("year");
   if (y) y.textContent = "© " + new Date().getFullYear();
