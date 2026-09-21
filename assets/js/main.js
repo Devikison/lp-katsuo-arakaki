@@ -64,6 +64,76 @@
     items.forEach(function (el) { if (!el.classList.contains("is-in")) io.observe(el); });
   }
 
+  /* ---------- Carrossel de depoimentos ---------- */
+  document.querySelectorAll("[data-carousel]").forEach(function (root) {
+    var track = root.querySelector("[data-track]");
+    var prev = root.querySelector("[data-prev]");
+    var next = root.querySelector("[data-next]");
+    var dotsBox = root.querySelector("[data-dots]");
+    var slides = Array.prototype.slice.call(track.children);
+    if (!slides.length) return;
+
+    var dots = slides.map(function (_, i) {
+      var b = document.createElement("button");
+      b.type = "button"; b.setAttribute("aria-label", "Ir para o depoimento " + (i + 1));
+      b.addEventListener("click", function () { go(i); });
+      dotsBox.appendChild(b);
+      return b;
+    });
+
+    function gap() { var g = parseFloat(getComputedStyle(track).columnGap); return isNaN(g) ? 16 : g; }
+    function step() { return slides[0].getBoundingClientRect().width + gap(); }
+    function index() { return Math.round(track.scrollLeft / step()); }
+    function maxIndex() { return Math.max(0, Math.round((track.scrollWidth - track.clientWidth) / step())); }
+    function go(i) {
+      i = Math.max(0, Math.min(i, maxIndex()));
+      track.scrollTo({ left: i * step(), behavior: reduce ? "auto" : "smooth" });
+    }
+    function paint() {
+      var i = index(), m = maxIndex();
+      dots.forEach(function (d, k) { d.classList.toggle("is-on", k === Math.min(i, dots.length - 1)); });
+      prev.disabled = i <= 0; next.disabled = i >= m;
+    }
+    prev.addEventListener("click", function () { go(index() - 1); });
+    next.addEventListener("click", function () { go(index() + 1); });
+    track.addEventListener("scroll", function () { window.requestAnimationFrame(paint); }, { passive: true });
+    window.addEventListener("resize", paint);
+    paint();
+
+    /* arrastar com o mouse no desktop */
+    var down = false, startX = 0, startL = 0, moved = false;
+    track.addEventListener("pointerdown", function (e) {
+      if (e.pointerType !== "mouse") return;
+      down = true; moved = false; startX = e.clientX; startL = track.scrollLeft;
+      track.classList.add("is-dragging"); track.setPointerCapture(e.pointerId);
+    });
+    track.addEventListener("pointermove", function (e) {
+      if (!down) return;
+      var dx = e.clientX - startX; if (Math.abs(dx) > 4) moved = true;
+      track.scrollLeft = startL - dx;
+    });
+    function up() {
+      if (!down) return; down = false; track.classList.remove("is-dragging");
+      go(index());
+    }
+    track.addEventListener("pointerup", up); track.addEventListener("pointercancel", up); track.addEventListener("mouseleave", up);
+    track.addEventListener("click", function (e) { if (moved) { e.preventDefault(); moved = false; } }, true);
+
+    /* passa sozinho, devagar; para enquanto a pessoa interage */
+    var timer = null, hold = false;
+    function play() {
+      if (reduce) return;
+      clearInterval(timer);
+      timer = setInterval(function () {
+        if (hold || document.hidden) return;
+        var i = index(); go(i >= maxIndex() ? 0 : i + 1);
+      }, 5200);
+    }
+    ["pointerenter", "focusin", "touchstart"].forEach(function (ev) { root.addEventListener(ev, function () { hold = true; }, { passive: true }); });
+    ["pointerleave", "focusout", "touchend"].forEach(function (ev) { root.addEventListener(ev, function () { hold = false; }, { passive: true }); });
+    play();
+  });
+
   /* ---------- FAQ: um aberto por vez ---------- */
   var faqs = document.querySelectorAll(".faq__item");
   faqs.forEach(function (d) {
@@ -72,13 +142,22 @@
     });
   });
 
-  /* ---------- Barra fixa: some quando o rodapé aparece ---------- */
+  /* ---------- Barra fixa (celular): aparece só depois do hero, some no rodapé ---------- */
   var sticky = document.querySelector(".sticky");
+  var hero = document.getElementById("hero");
   var footer = document.querySelector(".footer");
-  if (sticky && footer && "IntersectionObserver" in window) {
+  if (sticky && hero && footer && "IntersectionObserver" in window) {
+    var pastHero = false, atFooter = false;
+    function paintSticky() { sticky.classList.toggle("sticky--on", pastHero && !atFooter); }
     new IntersectionObserver(function (entries) {
-      sticky.classList.toggle("sticky--hide", entries[0].isIntersecting);
-    }, { threshold: 0.2 }).observe(footer);
+      pastHero = !entries[0].isIntersecting && entries[0].boundingClientRect.bottom < 0;
+      paintSticky();
+    }, { threshold: 0, rootMargin: "-120px 0px 0px 0px" }).observe(hero);
+    new IntersectionObserver(function (entries) {
+      atFooter = entries[0].isIntersecting; paintSticky();
+    }, { threshold: 0.15 }).observe(footer);
+  } else if (sticky) {
+    sticky.classList.add("sticky--on");
   }
 
   /* ---------- Ano ---------- */
