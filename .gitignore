@@ -5,3 +5,4 @@ desktop.ini
 node_modules/
 .vercel/
 .claude/
+docs/
