@@ -61,8 +61,8 @@
 
     function renderScroll() {
       var diff = target - current;
-      current += diff * 0.14;
-      if (Math.abs(diff) < 0.4) {
+      current += diff * 0.7;
+      if (Math.abs(diff) < 0.5) {
         current = target;
         window.scrollTo(0, current);
         ticking = false;
@@ -72,10 +72,14 @@
       requestAnimationFrame(renderScroll);
     }
 
+    var maxLead = 45; // trava a distância entre o ponto real e o alvo: só tira o "seco" do salto, sem criar fila nem atraso perceptível
+
     window.addEventListener("wheel", function (e) {
       if (e.ctrlKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return; // zoom / rolagem lateral: deixa nativo
       e.preventDefault();
-      target = Math.max(0, Math.min(maxScroll(), target + e.deltaY));
+      var proposed = target + e.deltaY;
+      proposed = Math.max(current - maxLead, Math.min(current + maxLead, proposed));
+      target = Math.max(0, Math.min(maxScroll(), proposed));
       if (!ticking) { ticking = true; requestAnimationFrame(renderScroll); }
     }, { passive: false });
 
