@@ -48,47 +48,6 @@
 
   /* ---------- Revelação suave ao rolar ---------- */
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  /* ---------- Rolagem suave e sutil no scroll do mouse (desktop) ---------- */
-  if (!reduce && !("ontouchstart" in window) && "requestAnimationFrame" in window) {
-    var current = window.scrollY;
-    var target = window.scrollY;
-    var ticking = false;
-
-    function maxScroll() {
-      return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-    }
-
-    function renderScroll() {
-      var diff = target - current;
-      current += diff * 0.7;
-      if (Math.abs(diff) < 0.5) {
-        current = target;
-        window.scrollTo(0, current);
-        ticking = false;
-        return;
-      }
-      window.scrollTo(0, current);
-      requestAnimationFrame(renderScroll);
-    }
-
-    var maxLead = 45; // trava a distância entre o ponto real e o alvo: só tira o "seco" do salto, sem criar fila nem atraso perceptível
-
-    window.addEventListener("wheel", function (e) {
-      if (e.ctrlKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return; // zoom / rolagem lateral: deixa nativo
-      e.preventDefault();
-      var proposed = target + e.deltaY;
-      proposed = Math.max(current - maxLead, Math.min(current + maxLead, proposed));
-      target = Math.max(0, Math.min(maxScroll(), proposed));
-      if (!ticking) { ticking = true; requestAnimationFrame(renderScroll); }
-    }, { passive: false });
-
-    window.addEventListener("scroll", function () {
-      if (!ticking) { current = window.scrollY; target = window.scrollY; }
-    }, { passive: true });
-
-    window.addEventListener("resize", function () { target = Math.min(target, maxScroll()); });
-  }
   var items = document.querySelectorAll(".reveal");
   // O que já está na primeira dobra aparece na hora, sem esperar o observer
   items.forEach(function (el) {
