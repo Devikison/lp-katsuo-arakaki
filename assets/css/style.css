@@ -130,6 +130,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   color: var(--ink); max-width: 860px; text-wrap: pretty;
 }
 .h2--light { color: #fff; }
+.nowrap { white-space: nowrap; }
+.h2--rec { max-width: none; }
+@media (max-width: 560px) { .h2--rec { font-size: clamp(20px, 6.9vw, 28px); } }
 .h2--sm { font-size: clamp(26px, 3vw, 36px); }
 .accent { color: var(--blue-ink); font-weight: 500; }
 .h2--light .accent { color: var(--blue-soft); }
