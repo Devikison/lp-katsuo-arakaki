@@ -17,6 +17,9 @@
   --sand:        #E8D1A7;
   --sand-hi:     #F4E3C4;
   --white:       #FFFFFF;
+  --wa:          #25D366;   /* verde WhatsApp */
+  --wa-hi:       #3BE07A;
+  --wa-deep:     #1DB955;
 
   --tint:        #F1F5FB;   /* fundo de dobras alternadas */
   --tint-2:      #E7EFF9;   /* pills e destaques claros */
@@ -106,6 +109,21 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   border-color: rgba(135, 170, 226, .55);
 }
 
+/* bolinha "online" (sutil) */
+.online {
+  position: relative; flex: none; width: 8px; height: 8px; margin-right: 10px;
+  border-radius: 50%; background: var(--wa); box-shadow: 0 0 0 2px rgba(37, 211, 102, .18);
+}
+.online::before {
+  content: ""; position: absolute; inset: -4px; border-radius: 50%;
+  border: 1px solid rgba(37, 211, 102, .7); animation: onlinePulse 2.2s ease-out infinite;
+}
+@keyframes onlinePulse {
+  0%   { transform: scale(.6); opacity: .9; }
+  70%  { transform: scale(1.7); opacity: 0; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+
 .h2 {
   font-family: var(--font-title); font-weight: 300;
   font-size: clamp(28px, 4vw, 48px); line-height: 1.12; letter-spacing: -.012em;
@@ -132,14 +150,16 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .btn .ico { width: 21px; height: 21px; flex: none; }
 .btn:active { transform: translateY(0) scale(.98); }
 
-.btn--gold { background: var(--sand); color: var(--navy); box-shadow: 0 14px 34px rgba(0, 0, 0, .22); }
-.btn--gold:hover { background: var(--sand-hi); color: var(--navy); transform: translateY(-3px); box-shadow: 0 22px 48px rgba(0, 0, 0, .3); }
+.btn--wa {
+  background: var(--wa); color: var(--navy);
+  box-shadow: 0 14px 34px rgba(37, 211, 102, .28), 0 2px 0 rgba(0, 0, 0, .06) inset;
+}
+.btn--wa:hover { background: var(--wa-hi); color: var(--navy); transform: translateY(-3px); box-shadow: 0 22px 48px rgba(37, 211, 102, .38); }
+.btn--wa .ico { color: var(--navy); }
 
-.btn--navy { background: var(--navy); color: #fff; box-shadow: 0 12px 30px rgba(5, 23, 67, .22); }
-.btn--navy:hover { background: var(--navy-2); color: #fff; transform: translateY(-3px); box-shadow: 0 22px 46px rgba(5, 23, 67, .3); }
-
-.btn--ghost { color: #fff; border: 1px solid rgba(135, 170, 226, .55); background: rgba(135, 170, 226, .08); }
-.btn--ghost:hover { background: rgba(135, 170, 226, .18); color: #fff; }
+.btn--ghost { color: #fff; border: 1px solid rgba(37, 211, 102, .55); background: rgba(37, 211, 102, .12); }
+.btn--ghost:hover { background: rgba(37, 211, 102, .24); color: #fff; border-color: rgba(37, 211, 102, .8); }
+.btn--ghost .ico { color: var(--wa); }
 
 .btn--sm { min-height: 42px; padding: 0 18px; font-size: 14px; }
 .btn--sm .ico { width: 17px; height: 17px; }
@@ -222,16 +242,32 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .cta--hero { align-items: center; text-align: center; margin-top: 28px; }
 .cta--hero .cta__note { color: rgba(202, 214, 227, .9); }
 
-/* Desktop: headline no topo, vídeo à esquerda, sub-headline + CTA ao lado, tudo acima da dobra */
+/* Desktop: headline no topo, vídeo à esquerda, sub-headline + CTA ao lado.
+   Compacto o suficiente para a dobra inteira (até o botão) caber num notebook 1366/1280 × ~660. */
 @media (min-width: 1024px) {
+  .hero { padding-top: 16px; }
+  .topbar { padding-bottom: 20px; }
+  .brand__name { font-size: 28px; }
+  .brand__surname { font-size: 11.5px; }
+  .brand__tag { font-size: 10px; margin-top: 3px; }
+  .hero__content .eyebrow { margin-bottom: 18px; }
+  .hero__title { font-size: clamp(34px, 3.3vw, 46px); line-height: 1.08; max-width: 920px; }
   .hero__row {
-    display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-    gap: clamp(40px, 5vw, 72px); align-items: center; text-align: left;
+    display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: clamp(36px, 4vw, 56px); align-items: center; text-align: left; margin-top: 26px;
   }
   .hero__video { max-width: none; }
   .hero__lead { align-items: flex-start; max-width: none; }
-  .hero__sub { font-size: clamp(16px, 1.35vw, 18.5px); }
-  .cta--hero { align-items: flex-start; text-align: left; }
+  .hero__sub { font-size: 16.5px; line-height: 1.65; }
+  .cta--hero { align-items: flex-start; text-align: left; margin-top: 20px; gap: 12px; }
+  .cred { margin-top: 34px; padding-top: 20px; }
+  .hero { padding-bottom: clamp(40px, 5vw, 64px); }
+}
+@media (min-width: 1024px) and (min-height: 860px) {
+  .hero__title { font-size: clamp(36px, 3.6vw, 52px); }
+  .hero__row { margin-top: 32px; }
+  .topbar { padding-bottom: 32px; }
+  .cred { margin-top: 44px; }
 }
 
 /* Faixa de credibilidade */
@@ -394,11 +430,14 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .who__left, .who__right { display: flex; flex-direction: column; gap: 26px; }
 
 .portrait { position: relative; }
-.portrait picture, .portrait img {
-  width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%;
+.portrait picture {
+  display: block; width: 100%; aspect-ratio: 4 / 5; overflow: hidden;
   border-radius: var(--radius); background: var(--tint);
+  border: 1px solid var(--line); box-shadow: var(--shadow-lift);
 }
-.portrait picture { overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow-lift); }
+.portrait img {
+  width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%;
+}
 .portrait__cap {
   position: absolute; left: 16px; right: 16px; bottom: 16px;
   padding: 14px 18px; border-radius: 12px;
@@ -502,10 +541,11 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 /* ---------- Revelação ---------- */
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s var(--ease); }
+.hero .reveal.is-in { transition-duration: .45s; }
 .reveal.is-in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
-  .video__ring { animation: none; }
+  .video__ring, .online::before { animation: none; }
   html { scroll-behavior: auto; }
 }
 
