@@ -146,11 +146,12 @@
     body.style.height = body.scrollHeight + "px";
     d.classList.add("is-open");
     var done = function (e) {
-      if (e.propertyName !== "height") return;
+      if (e && e.propertyName !== "height") return;
       body.removeEventListener("transitionend", done);
       if (d.classList.contains("is-open")) body.style.height = "auto";
     };
     body.addEventListener("transitionend", done);
+    setTimeout(done, 700);
   }
   function faqClose(d) {
     var body = d.querySelector(".faq__body");
@@ -160,11 +161,12 @@
     body.style.height = "0px";
     d.classList.remove("is-open");
     var done = function (e) {
-      if (e.propertyName !== "height") return;
+      if (e && e.propertyName !== "height") return;
       body.removeEventListener("transitionend", done);
       if (!d.classList.contains("is-open")) { d.open = false; body.style.height = ""; }
     };
     body.addEventListener("transitionend", done);
+    setTimeout(done, 700);
   }
   faqs.forEach(function (d) {
     d.querySelector("summary").addEventListener("click", function (e) {
