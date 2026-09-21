@@ -48,6 +48,39 @@
 
   /* ---------- Revelação suave ao rolar ---------- */
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  /* ---------- Rolagem suave (desktop, roda do mouse): inércia leve e fluida ---------- */
+  (function () {
+    if (!fine || reduce) return;
+    var target = window.scrollY, current = target, raf = null, animating = false, EASE = .075;
+    function maxY() { return document.documentElement.scrollHeight - window.innerHeight; }
+    function loop() {
+      current += (target - current) * EASE;
+      if (Math.abs(target - current) < .4) {
+        current = target;
+        window.scrollTo({ top: current, behavior: "instant" });
+        raf = null; animating = false;
+        return;
+      }
+      window.scrollTo({ top: current, behavior: "instant" });
+      raf = requestAnimationFrame(loop);
+    }
+    window.addEventListener("wheel", function (e) {
+      if (e.ctrlKey || e.metaKey || document.body.style.overflow === "hidden") return;
+      if (e.target.closest && e.target.closest(".quotes") && Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+      e.preventDefault();
+      var d = e.deltaY;
+      if (e.deltaMode === 1) d *= 16; else if (e.deltaMode === 2) d *= window.innerHeight;
+      if (!animating) { current = window.scrollY; target = current; }
+      target = Math.max(0, Math.min(maxY(), target + d * .9));
+      animating = true;
+      if (!raf) raf = requestAnimationFrame(loop);
+    }, { passive: false });
+    // rolagem vinda de outro lugar (teclado, barra, âncora): sincroniza
+    window.addEventListener("scroll", function () { if (!animating) { current = target = window.scrollY; } }, { passive: true });
+  })();
+
   var items = document.querySelectorAll(".reveal");
   // O que já está na primeira dobra aparece na hora, sem esperar o observer
   items.forEach(function (el) {
