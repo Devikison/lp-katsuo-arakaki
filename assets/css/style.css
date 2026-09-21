@@ -746,7 +746,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .cookie__btn--yes:hover { background: var(--wa-hi); transform: translateY(-1px); }
 .cookie__btn--no { border: 1px solid var(--line); color: var(--body-soft); background: #fff; }
 .cookie__btn--no:hover { border-color: var(--blue-soft); color: var(--ink); }
-body.cookie-open .bubble { bottom: 150px; }
+body.cookie-open .bubble { bottom: 170px; }
 @media (max-width: 860px) {
   .cookie { right: 12px; left: 12px; width: auto; bottom: calc(92px + env(safe-area-inset-bottom)); padding: 14px 16px; }
   .cookie__actions .cookie__btn { flex: 1; }
