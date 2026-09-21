@@ -146,18 +146,15 @@
   var sticky = document.querySelector(".sticky");
   var hero = document.getElementById("hero");
   var footer = document.querySelector(".footer");
-  if (sticky && hero && footer && "IntersectionObserver" in window) {
-    var pastHero = false, atFooter = false;
-    function paintSticky() { sticky.classList.toggle("sticky--on", pastHero && !atFooter); }
-    new IntersectionObserver(function (entries) {
-      pastHero = !entries[0].isIntersecting && entries[0].boundingClientRect.bottom < 0;
-      paintSticky();
-    }, { threshold: 0, rootMargin: "-120px 0px 0px 0px" }).observe(hero);
-    new IntersectionObserver(function (entries) {
-      atFooter = entries[0].isIntersecting; paintSticky();
-    }, { threshold: 0.15 }).observe(footer);
-  } else if (sticky) {
-    sticky.classList.add("sticky--on");
+  if (sticky && hero && footer) {
+    function paintSticky() {
+      var pastHero = hero.getBoundingClientRect().bottom < 96;
+      var atFooter = footer.getBoundingClientRect().top < window.innerHeight - 24;
+      sticky.classList.toggle("sticky--on", pastHero && !atFooter);
+    }
+    window.addEventListener("scroll", paintSticky, { passive: true });
+    window.addEventListener("resize", paintSticky);
+    paintSticky();
   }
 
   /* ---------- Ano ---------- */
