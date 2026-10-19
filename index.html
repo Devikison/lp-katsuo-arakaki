@@ -67,9 +67,9 @@
       <div class="hero__row">
       <div class="hero__video reveal" data-video="vsl">
         <button type="button" class="video" data-video-target="vsl" aria-label="Assistir ao vídeo de apresentação">
-          <picture class="video__poster">
-            <source type="image/webp" srcset="assets/img/katsuo-terno-900.webp 900w, assets/img/katsuo-terno-1400.webp 1400w" sizes="(max-width: 960px) 100vw, 900px">
-            <img src="assets/img/katsuo-terno-900.jpg" srcset="assets/img/katsuo-terno-900.jpg 900w, assets/img/katsuo-terno-1400.jpg 1400w" sizes="(max-width: 960px) 100vw, 900px" alt="Katsuo Arakaki, terapeuta" width="1335" height="2000" fetchpriority="high">
+          <picture class="video__poster video__poster--vsl">
+            <source type="image/webp" srcset="assets/img/vsl-capa.webp">
+            <img src="assets/img/vsl-capa.jpg" alt="Katsuo Arakaki no consultório, capa do vídeo de apresentação" width="1280" height="720" fetchpriority="high">
           </picture>
           <span class="video__shade" aria-hidden="true"></span>
           <span class="video__play" aria-hidden="true">
@@ -281,19 +281,6 @@
       </div>
 
       <div class="who__right">
-        <div class="depo-video reveal" data-video="depo">
-          <p class="eyebrow">Depoimento em vídeo</p>
-          <button type="button" class="video video--depo" data-video-target="depo" aria-label="Assistir ao depoimento em vídeo">
-            <span class="video__poster video__poster--navy" aria-hidden="true">
-              <span class="video__quote">“</span>
-              <span class="video__poster-text">17 dias sem nenhum sintoma <em>após a primeira sessão</em></span>
-            </span>
-            <span class="video__play" aria-hidden="true">
-              <span class="video__btn video__btn--sm"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5L8 5.5Z"/></svg></span>
-            </span>
-          </button>
-        </div>
-
         <div class="carousel reveal" data-carousel aria-roledescription="carrossel" aria-label="Depoimentos de clientes">
           <ul class="quotes" data-track>
             <li class="quote">
@@ -343,6 +330,77 @@
             <button type="button" class="carousel__btn" data-next aria-label="Próximo depoimento"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     06B · DEPOIMENTOS EM VÍDEO (YouTube, mesmos do katsuoarakaki.com.br)
+     ============================================================ -->
+<section class="section section--navy" id="depoimentos-video" aria-labelledby="t-vid">
+  <div class="container">
+    <div class="section__head section__head--center reveal">
+      <p class="eyebrow eyebrow--dark">Depoimentos em vídeo</p>
+      <h2 class="h2 h2--light" id="t-vid">Histórias de quem voltou a viver <span class="accent">sem estar preso aos mesmos padrões</span></h2>
+    </div>
+
+    <div class="carousel carousel--videos reveal" data-carousel data-autoplay="off" aria-roledescription="carrossel" aria-label="Depoimentos em vídeo">
+      <ul class="vcards" data-track>
+        <li class="vcard">
+          <button type="button" class="vcard__frame" data-yt="StEYcUvTbEc" aria-label="Ver depoimento de Luiz Otávio">
+            <img src="https://i.ytimg.com/vi/StEYcUvTbEc/hqdefault.jpg" alt="Depoimento de Luiz Otávio" width="480" height="360" loading="lazy" decoding="async">
+            <span class="vcard__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5L8 5.5Z"/></svg></span>
+          </button>
+          <p class="vcard__name">Luiz Otávio</p>
+        </li>
+        <li class="vcard">
+          <button type="button" class="vcard__frame" data-yt="W8yWHz-haBE" aria-label="Ver depoimento de Maria">
+            <img src="https://i.ytimg.com/vi/W8yWHz-haBE/hqdefault.jpg" alt="Depoimento de Maria" width="480" height="360" loading="lazy" decoding="async">
+            <span class="vcard__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5L8 5.5Z"/></svg></span>
+          </button>
+          <p class="vcard__name">Maria</p>
+        </li>
+        <li class="vcard">
+          <button type="button" class="vcard__frame" data-yt="TQvmSrMPhnI" aria-label="Ver depoimento de Rigelia">
+            <img src="https://i.ytimg.com/vi/TQvmSrMPhnI/hqdefault.jpg" alt="Depoimento de Rigelia" width="480" height="360" loading="lazy" decoding="async">
+            <span class="vcard__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5L8 5.5Z"/></svg></span>
+          </button>
+          <p class="vcard__name">Rigelia</p>
+        </li>
+        <li class="vcard">
+          <button type="button" class="vcard__frame" data-yt="4cfiPvOyCdU" aria-label="Ver depoimento de Silvia">
+            <img src="https://i.ytimg.com/vi/4cfiPvOyCdU/hqdefault.jpg" alt="Depoimento de Silvia" width="480" height="360" loading="lazy" decoding="async">
+            <span class="vcard__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5L8 5.5Z"/></svg></span>
+          </button>
+          <p class="vcard__name">Silvia</p>
+        </li>
+        <li class="vcard">
+          <button type="button" class="vcard__frame" data-yt="KZbH4onshvg" aria-label="Ver depoimento de Aviao">
+            <img src="https://i.ytimg.com/vi/KZbH4onshvg/hqdefault.jpg" alt="Depoimento de Aviao" width="480" height="360" loading="lazy" decoding="async">
+            <span class="vcard__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5L8 5.5Z"/></svg></span>
+          </button>
+          <p class="vcard__name">Aviao</p>
+        </li>
+        <li class="vcard">
+          <button type="button" class="vcard__frame" data-yt="sNni5rulVOw" aria-label="Ver depoimento de Debora">
+            <img src="https://i.ytimg.com/vi/sNni5rulVOw/hqdefault.jpg" alt="Depoimento de Debora" width="480" height="360" loading="lazy" decoding="async">
+            <span class="vcard__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5L8 5.5Z"/></svg></span>
+          </button>
+          <p class="vcard__name">Debora</p>
+        </li>
+        <li class="vcard">
+          <button type="button" class="vcard__frame" data-yt="TEpVgqNNM9s" aria-label="Ver depoimento de Alef">
+            <img src="https://i.ytimg.com/vi/TEpVgqNNM9s/hqdefault.jpg" alt="Depoimento de Alef" width="480" height="360" loading="lazy" decoding="async">
+            <span class="vcard__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5L8 5.5Z"/></svg></span>
+          </button>
+          <p class="vcard__name">Alef</p>
+        </li>
+      </ul>
+      <div class="carousel__nav">
+        <button type="button" class="carousel__btn" data-prev aria-label="Vídeo anterior"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="carousel__dots" data-dots aria-hidden="true"></div>
+        <button type="button" class="carousel__btn" data-next aria-label="Próximo vídeo"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
     </div>
   </div>

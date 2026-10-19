@@ -34,6 +34,23 @@
       return;
     }
     btn.addEventListener("click", function () {
+      /* arquivo de vídeo próprio (.mp4): player nativo, só baixa ao clicar */
+      if (/\.mp4(\?|$)/i.test(url)) {
+        var img = btn.querySelector("img");
+        var vid = document.createElement("video");
+        vid.src = url;
+        vid.controls = true;
+        vid.autoplay = true;
+        vid.playsInline = true;
+        vid.preload = "auto";
+        if (img) vid.poster = img.currentSrc || img.src;
+        vid.className = "video__player";
+        vid.setAttribute("aria-label", btn.getAttribute("aria-label") || "Vídeo");
+        btn.replaceWith(vid);
+        var p = vid.play();
+        if (p && p.catch) p.catch(function () {});
+        return;
+      }
       var src = embedUrl(url);
       var sep = src.indexOf("?") === -1 ? "?" : "&";
       var frame = document.createElement("iframe");
@@ -68,7 +85,7 @@
     }
     window.addEventListener("wheel", function (e) {
       if (e.ctrlKey || e.metaKey || document.body.style.overflow === "hidden") return;
-      if (e.target.closest && e.target.closest(".quotes") && Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+      if (e.target.closest && e.target.closest(".quotes, .vcards") && Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
       e.preventDefault();
       var d = e.deltaY;
       if (e.deltaMode === 1) d *= 16; else if (e.deltaMode === 2) d *= window.innerHeight;
@@ -96,6 +113,20 @@
     }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
     items.forEach(function (el) { if (!el.classList.contains("is-in")) io.observe(el); });
   }
+
+  /* ---------- Depoimentos em vídeo: YouTube só carrega ao clicar ---------- */
+  document.querySelectorAll("[data-yt]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var id = btn.getAttribute("data-yt");
+      var frame = document.createElement("iframe");
+      frame.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0&playsinline=1";
+      frame.title = btn.getAttribute("aria-label") || "Depoimento em vídeo";
+      frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture";
+      frame.setAttribute("allowfullscreen", "");
+      frame.className = "vcard__player";
+      btn.replaceWith(frame);
+    });
+  });
 
   /* ---------- Carrossel de depoimentos ---------- */
   document.querySelectorAll("[data-carousel]").forEach(function (root) {
@@ -150,12 +181,12 @@
       go(index());
     }
     track.addEventListener("pointerup", up); track.addEventListener("pointercancel", up); track.addEventListener("mouseleave", up);
-    track.addEventListener("click", function (e) { if (moved) { e.preventDefault(); moved = false; } }, true);
+    track.addEventListener("click", function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
 
     /* passa sozinho, devagar; para enquanto a pessoa interage */
     var timer = null, hold = false;
     function play() {
-      if (reduce) return;
+      if (reduce || root.getAttribute("data-autoplay") === "off") return;
       clearInterval(timer);
       timer = setInterval(function () {
         if (hold || document.hidden) return;
